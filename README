@@ -1,23 +1,23 @@
-# Analysis code for the research paper "Female lineages and changing kinship patterns in Neolithic Çatalhöyük"
+#Analysis code for the research paper "Female lineages and changing kinship patterns in Neolithic Çatalhöyük"
 
 This repo contains computer code used for analyses conducted in the paper "Female lineages and changing kinship patterns in Neolithic Çatalhöyük"
 
-## preprocessing 
+##preprocessing 
 preproccessing code is available at: https://github.com/CompEvoMetu/aDNAworkshop2022/tree/main/preprocessing
 
-## simulations 
+##simulations 
 
 code used for simulating XXX is available under "simulations"
 
-## kmer analyses
+##kmer analyses
 
 code used for kmer related analyses are available under "kmer_analysess"
 
-## pedigrees
+##pedigrees
 
 code used to generate pedigree visualizations are available under "pedigree_visualizations"
 
-## imputation
+##imputation
 
 imputation code is available https://github.com/KivilcimBasakVural/GLIMPSE_workshop_compevo
 
