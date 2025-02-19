@@ -17,7 +17,13 @@ code used for kmer related analyses are available under "kmer_analysess"
 
 code used to generate pedigree visualizations are available under "pedigree_visualizations"
 
+## roh
 
+code used for roh related analyses are available under "roh"
+
+## residence_simulation
+
+code used for residence_simulation related analyses are available under "residence_simulation"
 ---
 
 References to other codes and programs used througout the study can be found in relevant sections of the paper.

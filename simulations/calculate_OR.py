@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description = 'Calculate simulated OR')
 parser.add_argument('-f', '--fam', type = int, help = 'Family size for constant size simulations')
 parser.add_argument('-t', '--type', type = str, required = True, help = 'Type of simulation: "cons" for constant size, "var" variable size')
 parser.add_argument('-i', '--iter', type = int, required = True, help = 'Total number of iterations for randomization')
-parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut of value for filtering observed kinship results')
+parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut off value for filtering observed kinship results')
 args = parser.parse_args()
 
 if args.type != 'cons' and args.type != 'var':
@@ -28,11 +28,11 @@ if args.type == 'cons':
 else:
 	fam_s = 'var'
 
-cut_of = str(args.filter)
+cut_off = str(args.filter)
 iter_s = str(args.iter)
 
 #Concat results of each simulation
-results = glob.glob('simulation_random_relatedness_freq*fam' + fam_s + '_sim*_filt' + cut_of + '.txt')
+results = glob.glob('simulation_random_relatedness_freq*fam' + fam_s + '_sim*_filt' + cut_off + '.txt')
 
 if len(results) == 0:
 	print('Can not find simulated frequency values for periods. Please run samplecobureidkin.py and randomizecoburiedkin.py first or check parameters!')
@@ -80,7 +80,7 @@ for a in age_list:
 		df['Simulation'] = df['Simulation'].astype(str)
 		df['Iteration'] = df['Iteration'].astype(str)
 		#Save merged results
-		df.to_csv('simulation_random_relatedness_' + a + fam_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+		df.to_csv('simulation_random_relatedness_' + a + fam_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 		#Calculate OR
 		
@@ -130,6 +130,6 @@ for a in age_list:
 		or_all = or_all.drop('Groups', axis = 1).iloc[:, [3,4,0,1,2]]
 
 		#Save OR results
-		or_all.to_csv('OR_simulation_random_relatedness_' + a + fam_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+		or_all.to_csv('OR_simulation_random_relatedness_' + a + fam_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 print('End of OR calculation!!')

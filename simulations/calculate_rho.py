@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description = 'Calculate simulated rho')
 parser.add_argument('-f', '--fam', type = int, help = 'Family size for constant size simulations')
 parser.add_argument('-t', '--type', type = str, required = True, help = 'Type of simulation: "cons" for constant size, "var" variable size')
 parser.add_argument('-i', '--iter', type = int, required = True, help = 'Total number of iterations for randomization')
-parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut of value for filtering observed kinship results')
+parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut off value for filtering observed kinship results')
 args = parser.parse_args()
 
 if args.type != 'cons' and args.type != 'var':
@@ -28,13 +28,13 @@ if args.type == 'cons':
 else:
 	fam_s = 'var'
 
-cut_of = str(args.filter)
+cut_off = str(args.filter)
 iter_s = str(args.iter)
 
 warnings.filterwarnings('ignore', message = 'An input array is constant; the correlation coefficient is not defined.')
 
 #Concat results of each simulation
-results = glob.glob('simulation_random_relatedness_per_building_freq*fam' + fam_s + '_sim*_filt' + cut_of + '.txt')
+results = glob.glob('simulation_random_relatedness_per_building_freq*fam' + fam_s + '_sim*_filt' + cut_off + '.txt')
 
 if len(results) == 0:
 	print('Can not find simulated frequency values for buildings. Please run samplecobureidkin.py and randomizecoburiedkin.py first or check parameters!')
@@ -79,7 +79,7 @@ for a in age_list:
 		df['Simulation'] = df['Simulation'].astype(str)
 		df['Iteration'] = df['Iteration'].astype(str)
 		#Save merged results
-		df.to_csv('simulation_random_relatedness_' + a + fam_s + '_iter'+ iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+		df.to_csv('simulation_random_relatedness_' + a + fam_s + '_iter'+ iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 		#Get building date information
 		df[['Min', 'Max']] = df.Date.str.split('-', expand = True)
@@ -110,6 +110,6 @@ for a in age_list:
 		rho_all[['Simulation', 'Iteration']] = rho_all['Groups'].str.split('_', expand = True)
 		rho_all = rho_all.drop('Groups', axis = 1).iloc[:, [2,3,0,1]]
 
-		rho_all.to_csv('rho_burial2_simulation_random_relatedness_' + fam_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', na_rep = 'NaN', sep = '\t', index = False)
+		rho_all.to_csv('rho_burial2_simulation_random_relatedness_' + fam_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', na_rep = 'NaN', sep = '\t', index = False)
 
 print('End of rho calculation!!')

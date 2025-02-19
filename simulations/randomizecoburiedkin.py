@@ -13,7 +13,7 @@ parser.add_argument('-i', '--iter', type = int, required = True, help = 'Number 
 parser.add_argument('-s', '--siter', type = int, required = True, help = 'Simulation no')
 parser.add_argument('-t', '--type', type = str, required = True, help = 'Type of simulation: "cons" for constant size, "var" variable size')
 parser.add_argument('-f', '--fam', type = int, help = 'Family size for constant size simulations')
-parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut of value for filtering observed kinship results')
+parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut off value for filtering observed kinship results')
 args = parser.parse_args()
 
 if args.type != 'cons' and args.type != 'var':
@@ -24,7 +24,7 @@ if args.type == 'cons':
 	if args.fam is None:
 		parser.error('Family size is required for constant family size simulations!')
 
-cut_of = str(args.filter)
+cut_off = str(args.filter)
 iter_s = str(args.iter)
 siter_s = str(args.siter)
 
@@ -87,11 +87,11 @@ sim_adu = pd.Series(data.Adult_DNA.values, index = data.Period_Building).to_dict
 sim_ado = pd.Series(data.Adolescent_DNA.values, index = data.Period_Building).to_dict()
 
 #Save coburial pair information for random selection
-if not os.path.isfile('period_pair_info_filt' + cut_of + '.txt'):
+if not os.path.isfile('period_pair_info_filt' + cut_off + '.txt'):
 	raise FileNotFoundError('Observed relatedness table is not found. Please run samplecobureidkin.py first or check input parameters!')
 	exit()
 
-pair = pd.read_csv('period_pair_info_filt' + cut_of + '.txt', sep = '\t', converters = {'Building': str})
+pair = pd.read_csv('period_pair_info_filt' + cut_off + '.txt', sep = '\t', converters = {'Building': str})
 
 pair['Period_Building'] = pair[['Period', 'Building']].agg('_'.join, axis=1)
 
@@ -278,7 +278,7 @@ rand[['Period', 'Building']] = rand.Period_Building.str.split('_', expand = True
 rand = rand.drop(['Period_Building'], axis = 1)
 rand['Simulation'] = siter_s
 rand = rand.iloc[:, [6,3,4,5,1,0,2]]
-rand.to_csv('simulation_main_distribution_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+rand.to_csv('simulation_main_distribution_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 #Relatedness table of individuals selected after randomization
 sim_rln['Iteration'] = sim_rln['Iteration'].astype(str)
@@ -288,7 +288,7 @@ sim_rln[['Period2', 'Building2']] = sim_rln.Period_Building2.str.split('_', expa
 sim_rln = sim_rln.drop(['Period_Building1', 'Period_Building2'], axis = 1)
 sim_rln['Simulation'] = siter_s
 sim_rln = sim_rln.iloc[:, [12,9,10,7,0,2,3,11,8,1,4,5,6]]
-sim_rln.to_csv('simulation_sample_relatedness_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+sim_rln.to_csv('simulation_sample_relatedness_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 #List of pairs selected after randomization
 pair_rln['Iteration'] = pair_rln['Iteration'].astype(str)
@@ -298,7 +298,7 @@ pair_rln[['Period2', 'Building2']] = pair_rln.Period_Building2.str.split('_', ex
 pair_rln = pair_rln.drop(['Period_Building1', 'Period_Building2', 'Age_Cat'], axis = 1)
 pair_rln['Simulation'] = siter_s
 pair_rln = pair_rln.iloc[:, [12,9,10,7,0,2,3,11,8,1,4,5,6]]
-pair_rln.to_csv('simulation_pair_relatedness_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+pair_rln.to_csv('simulation_pair_relatedness_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 #Total number of related and unrelated pairs per period for all samples
 rand_freq['Iteration'] = rand_freq['Iteration'].astype('str')
@@ -308,7 +308,7 @@ rand_freq = rand_freq.iloc[:, [5,3,0,1,2,4]].replace('',0).fillna(0)
 rand_freq['Related'] = rand_freq['Related'].astype(int)
 rand_freq['Unrelated'] = rand_freq['Unrelated'].astype(int)
 rand_freq['Total'] = rand_freq['Total'].astype(int)
-rand_freq.to_csv('simulation_random_relatedness_freq_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+rand_freq.to_csv('simulation_random_relatedness_freq_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 #Total number of related and unrelated pairs per period for subadults exc adolescents
 rand_freq_sub['Iteration'] = rand_freq_sub['Iteration'].astype('str')
@@ -318,7 +318,7 @@ rand_freq_sub = rand_freq_sub.iloc[:, [5,3,0,1,2,4]].replace('',0).fillna(0)
 rand_freq_sub['Related'] = rand_freq_sub['Related'].astype(int)
 rand_freq_sub['Unrelated'] = rand_freq_sub['Unrelated'].astype(int)
 rand_freq_sub['Total'] = rand_freq_sub['Total'].astype(int)
-rand_freq_sub.to_csv('simulation_random_relatedness_freq_subadults_wo_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+rand_freq_sub.to_csv('simulation_random_relatedness_freq_subadults_wo_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 #Total number of related and unrelated pairs per period for subadults inc adolescents
 rand_freq_sub_ado['Iteration'] = rand_freq_sub_ado['Iteration'].astype('str')
@@ -328,7 +328,7 @@ rand_freq_sub_ado = rand_freq_sub_ado.iloc[:, [5,3,0,1,2,4]].replace('',0).filln
 rand_freq_sub_ado['Related'] = rand_freq_sub_ado['Related'].astype(int)
 rand_freq_sub_ado['Unrelated'] = rand_freq_sub_ado['Unrelated'].astype(int)
 rand_freq_sub_ado['Total'] = rand_freq_sub_ado['Total'].astype(int)
-rand_freq_sub_ado.to_csv('simulation_random_relatedness_freq_subadults_wt_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+rand_freq_sub_ado.to_csv('simulation_random_relatedness_freq_subadults_wt_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 randb_freq['Iteration'] = randb_freq['Iteration'].astype('str')
 randb_freq['Total'] = randb_freq['Related'] + randb_freq['Unrelated']
@@ -340,7 +340,7 @@ randb_freq = randb_freq.iloc[:, [4,2,6,7,5,0,1,3]].replace('',0).fillna(0)
 randb_freq['Related'] = randb_freq['Related'].astype(int)
 randb_freq['Unrelated'] = randb_freq['Unrelated'].astype(int)
 randb_freq['Total'] = randb_freq['Total'].astype(int)
-randb_freq.to_csv('simulation_random_relatedness_per_building_freq_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+randb_freq.to_csv('simulation_random_relatedness_per_building_freq_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 randb_freq_sub['Iteration'] = randb_freq_sub['Iteration'].astype('str')
 randb_freq_sub['Total'] = randb_freq_sub['Related'] + randb_freq_sub['Unrelated']
@@ -352,7 +352,7 @@ randb_freq_sub = randb_freq_sub.iloc[:, [4,2,6,7,5,0,1,3]].replace('',0).fillna(
 randb_freq_sub['Related'] = randb_freq_sub['Related'].astype(int)
 randb_freq_sub['Unrelated'] = randb_freq_sub['Unrelated'].astype(int)
 randb_freq_sub['Total'] = randb_freq_sub['Total'].astype(int)
-randb_freq_sub.to_csv('simulation_random_relatedness_per_building_freq_subadults_wo_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+randb_freq_sub.to_csv('simulation_random_relatedness_per_building_freq_subadults_wo_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 randb_freq_sub_ado['Iteration'] = randb_freq_sub_ado['Iteration'].astype('str')
 randb_freq_sub_ado['Total'] = randb_freq_sub_ado['Related'] + randb_freq_sub_ado['Unrelated']
@@ -364,6 +364,6 @@ randb_freq_sub_ado = randb_freq_sub_ado.iloc[:, [4,2,6,7,5,0,1,3]].replace('',0)
 randb_freq_sub_ado['Related'] = randb_freq_sub_ado['Related'].astype(int)
 randb_freq_sub_ado['Unrelated'] = randb_freq_sub_ado['Unrelated'].astype(int)
 randb_freq_sub_ado['Total'] = randb_freq_sub_ado['Total'].astype(int)
-randb_freq_sub_ado.to_csv('simulation_random_relatedness_per_building_freq_subadults_wt_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_of + '.txt', sep = '\t', index = False)
+randb_freq_sub_ado.to_csv('simulation_random_relatedness_per_building_freq_subadults_wt_ados_fam' + fam_s + '_sim' + siter_s + '_iter' + iter_s + '_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 print('End of random selection!!')

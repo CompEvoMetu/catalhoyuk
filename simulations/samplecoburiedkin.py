@@ -10,7 +10,7 @@ import argparse
 parser = argparse.ArgumentParser(description = 'Simulate co-burial relatedness')
 parser.add_argument('-b', '--burial', type = str, required = True, help = 'Burial information from Table S1')
 parser.add_argument('-k', '--kin', type = str, required = True, help = 'Observed kinship relatedness from Table S3')
-parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut of value for filtering observed kinship results')
+parser.add_argument('-c', '--filter', type = int, required = True, help = 'Min common SNP cut off value for filtering observed kinship results')
 parser.add_argument('-s', '--siter', type = int, required = True, help = 'Simulation no')
 parser.add_argument('-t', '--type', type = str, required = True, help = 'Type of simulation: "cons" for constant size, "var" variable size')
 parser.add_argument('-f', '--fam', type = int, help = 'Family size for constant size simulations')
@@ -168,8 +168,8 @@ pairs[['Period', 'Building']] = pairs.Period_Building.str.split('_', expand = Tr
 pairs = pairs.drop(['Period_Building'], axis = 1).iloc[:, [6,7,0,1,2,3,4,5]]
 
 #Save coburial pair information
-cut_of = str(args.filter)
-pairs.to_csv('period_pair_info_filt' + cut_of + '.txt', sep = '\t', index = False)
+cut_off = str(args.filter)
+pairs.to_csv('period_pair_info_filt' + cut_off + '.txt', sep = '\t', index = False)
 
 #Start simulations
 #Functions
