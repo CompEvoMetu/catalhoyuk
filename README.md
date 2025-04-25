@@ -1,31 +1,35 @@
-## Analysis code for the research paper "Female lineages and changing kinship patterns in Neolithic Çatalhöyük"
+# Data and computer code used in the research paper "Female lineages and changing kinship patterns in Neolithic Çatalhöyük"
 
-This repo contains computer code used for analyses conducted in the paper "Female lineages and changing kinship patterns in Neolithic Çatalhöyük"
+This repo contains custom codes and tables Z1-24 of the paper "Female lineages and changing kinship patterns in Neolithic Çatalhöyük" Also see 
+doi:10.5281/zenodo.6373390                                        
 
-### preprocessing 
-preproccessing code is available at: XXX
+### Molecular Sex Assignement
+Code described in Supplementary Materials and Methods section 5 'Molecular sex assignment' are available in https://github.com/mskilic/SexDetermineR
 
-### simulations 
+### Haplotype diversity
+Codes described in Supplementary Materials and Methods section 8.7 'Testing change in pairwise haplotype diversity over time' are available in "haplotype diversity", by Gözde Atağ
 
-code used for simulating XXX is available under "simulations"
+### Downsampling experiments to test the effect of imputation
+Code described in Supplementary Materials and Methods section 11.2.2 'Downsampling experiments to test the effect of imputation on kinship estimates' in https://github.com/MerveNurGuler/Haploidize-VCF
 
-### kmer analyses
+### Evaluating variation in kinship estimates
+Code described in 11.4 'Evaluating variation in kinship estimates'are available in "estimating_variation.zip", by Merve Nur Güler
 
-code used for kmer related analyses are available under "kmer_analysess"
+### Pedigree reconstruction
+Codes described in Supplementary Materials and Methods section 12 'Pedigree reconstruction' are available in "pedigree_visualizations", by Ekin Sağlıcan
 
-### pedigrees
+### ROH analyses
+Codes described in Supplementary Materials and Methods section 13 'Runs of Homozygosity (ROH)' are available in "roh_analyses", by Elifnaz Eker
 
-code used to generate pedigree visualizations are available under "pedigree_visualizations"
+### Genealogy simulations for measuring inbreeding
+Codes described in Supplementary Materials and Methods section 14 'Genealogy simulations for measuring inbreeding under random mating' are available in
+https://github.com/BusraKatircioglu/inbreedingSimulation
 
-### roh
+### Residence simulations
+Code described in Supplementary Materials and Methods section 16 'Calculating the matrilocality rate posterior probability' are available in "residence_simulations", by Muhammed Sıddık Kılıç
 
-code used for roh related analyses are available under "roh"
+### Simulations of house co-burial relatedness
+Codes described in Supplementary Materials and Methods section 18 'Simulations of house co-burial relatedness' are available in "relatedness_simulations", by Eren Yüncü
 
-### residence_simulation
-
-code used for residence_simulation related analyses are available under "residence_simulation"
-
-
----
-
-References to other codes and programs used througout the study can be found in relevant sections of the paper.
+### Metagenomic analyses
+Codes described in Supplementary Materials and Methods section 19 'Metagenomic analysis' are available in "metagenomic_analyses", by Arda Sevkar
